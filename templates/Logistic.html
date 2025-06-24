@@ -1,0 +1,341 @@
+$def with (username)
+
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="/static/js/checkLogin.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+	<title>逻辑回归分析</title>
+    <style>
+		body {
+			background-color: #c1d8f5;
+			background-size: cover;
+		}
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .module1 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+		.module2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .container2 {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+		.container3 {
+			margin: 20px;
+		}
+
+		label, input, button {
+			display: block;
+			margin-bottom: 10px;
+		}
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+		.text2 {
+            font-size: 20px;
+            color: #357bb8;
+        }
+		.text3 {
+            font-size: 25px;
+            color:  #333;
+        }
+        .slogan {
+            text-align: center;
+			padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+		.red-bold {
+			color: red;
+			padding: 10px;
+			font-weight: bold;
+			font-size: 30px;
+		}
+		.myElement {
+			background-color: #c1d8f5;
+			border-radius: 10px;
+			padding: 10px;
+			color: #353535;
+		}
+		.myElement2 {
+			background-color: #377cb9;
+			text-align: center;
+			border-radius: 10px;
+			padding: 10px;
+			color: #ffffff;
+		}
+		.myElement3 {
+			background-color: #b32424;
+			text-align: center;
+			border-radius: 10px;
+			padding: 10px;
+			color: #ffffff;
+		}
+    </style>
+</head>
+
+<body>
+
+<div class="row"> <!-- 导航栏 -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<div class="slogan">
+				<p>面向统计学的数据计算可视化分析平台</p>
+			</div>
+			<div class="col-md-2" style="background-color: #f2f2f2;color: red;padding: 10px;font-weight: bold;font-size: 30px;"><br> </div>
+				<div class="red-bold text-center col-md-8" style="background-color: #f2f2f2;">
+					逻辑回归分析
+					</div>
+
+				<div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 5px; text-align: center;">
+					<div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 5px auto;"></div>
+					<h4 style="margin: 5px 0;">当前用户：$username</h4>
+				</div>
+		</div>
+	</nav>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"><!-- 2.左侧栏 -->
+			<div class="module1">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="calculateApp.html" target="_blank">首页</a></li>
+					<li><a href="FisherPlus.html" target="_blank">Fisher判别分析</a></li>
+					<li><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+					<li><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+					<li class="active"><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+					<li><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+					<li><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+					<li><a onclick="checkLogin()" target="_blank">查看历史记录</a></li>
+				</ul>
+			</div>
+
+			<a href="Logistic.html" target="_blank">
+				<img src="/static/img/logic.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+            <a href="SVM.html" target="_blank">
+				<img src="/static/img/svm.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Goldfish.html" target="_blank">
+				<img src="/static/img/goldfish.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="FisherPlus.html" target="_blank">
+				<img src="/static/img/fisher.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Linear.html" target="_blank">
+				<img src="/static/img/linear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="MLinear.html" target="_blank">
+				<img src="/static/img/mlinear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-5">
+					<a><img src="/static/img/logic.jpg" width="400" height="320" alt="logistic regression"></a>
+				</div>
+				<div class="row-cols-7">
+					<div class="module2">
+						<button type="button" class="btn btn-primary" data-toggle="button"><h3>逻辑回归简介：</h3></button>
+						<div class="module3"></div>
+						<div class="container2">
+       						<p class="text1">逻辑回归是一种广泛应用于分类问题的统计模型。它通过逻辑函数（sigmoid函数）将线性回归的输出转换为概率值，从而实现对数据点的分类。
+								<br><br>逻辑回归通过最小化损失函数（通常是交叉熵损失），并使用梯度下降法不断调整参数向量，从而找到最佳的分类决策边界。</p>
+    					</div>
+						<p class="text-center red-bold" style="color: #ffffff;background-color: #357bb8;">
+							逻辑回归分析过程化计算<br>
+
+						</p>
+						<div class="row">
+							<div class="col-md-3">
+								<form id="inputForm">
+									<label for="dataX"><h3 class="myElement2">输入数据矩阵X：</h3></label>
+									<textarea id="dataX" name="dataX" rows="5" cols="20" placeholder="例如：&#10;1 2&#10;3 4&#10;5 6"></textarea>
+									<label for="dataY"><h3 class="myElement2">标签向量y：</h3></label>
+									<textarea id="dataY" name="dataY" rows="5" cols="20" placeholder="例如：&#10;0&#10;1&#10;0"></textarea>
+									<button type="submit" class="myElement3"><h4>开始计算</h4></button>
+									<button type="button" class="myElement3" onclick="saveToHistory()" ><h4>保存记录</h4></button>
+
+								</form>
+							</div>
+							<div class="col-md-5">
+								<div id="result">
+									<h3 class="myElement2">计算结果与过程：</h3>
+								</div>
+								<div id="step1">
+									<h2 class="text2">Step1: 带有截距项的特征矩阵</h2>
+									<p class="myElement">x1 = \( \begin{bmatrix} 1 & X \end{bmatrix} \) = <span id="x1Result"></span></p>
+								</div>
+								<div id="step2">
+									<h2 class="text2">Step2: 参数向量θ</h2>
+									<p class="myElement">θ = <span id="thetaResult"></span></p>
+								</div>
+								<div id="step3">
+									 <h2 class="text2">Step3: 线性组合z</h2>
+									 <p class="myElement">z = \( x_{1}  \cdot θ \) = <span id="zResult"></span></p>
+								</div>
+								<div id="step4">
+									<h2 class="text2">Step4: 逻辑函数h</h2>
+									<p class="myElement">h = \( \frac{1}{1 + e^{-z}} \) = <span id="hResult"></span></p>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div id="step5">
+									<h2 class="text2">Step5: 损失函数J</h2>
+									<p class="myElement">J = -\( \frac{1}{m} \sum (y \log h + (1 - y) \log (1 - h)) \)<br> = <span id="JResult"></span></p>
+								</div>
+								<div id="step6">
+									<h2 class="text2">Step6: 计算梯度deltaJ</h2>
+									<p class="myElement">deltaJ = \( \frac{1}{m} x1^T (h - y) \) = <span id="deltaJResult"></span></p>
+								</div>
+								<div id="step7">
+									<h2 class="text2">Step7: 权重和偏置</h2>
+									<p class="myElement">w = <span id="wResult"></span><br>b = <span id="bResult"></span></p>
+								</div>
+								<div id="step8">
+									<h2 class="text2">Step8: 对数几率</h2>
+									<p class="myElement">log-odds = \( \log\left(\frac{h}{1-h}\right) \) = <span id="logOddsResult"></span></p>
+								</div>
+								<div id="step9">
+									<h2 class="text2">Step9: 决策边界</h2>
+									<p class="myElement">log-odds : \( b + w_{1}  x + w_{2}  y = 0 \)<br> = <span id="decisionBoundary"></span></p>
+								</div>
+							</div>
+						</div>
+						<h3 class="myElement2">绘制图像：</h3>
+						<h4>
+							<ul>
+								<span style="color: blue;"> ●</span> 数据点
+								<span style="color: red;"> —</span> 决策边界
+							</ul>
+						</h4>
+						<div id="plotlyChart" style="width: 1000px; height: 100%;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+
+<script>
+    document.getElementById('inputForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var dataX = document.getElementById('dataX').value.trim().split('\n').map(x => x.trim().split(' ').map(Number));
+        var dataY = document.getElementById('dataY').value.trim().split('\n').map(Number);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/calculate1', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var result = JSON.parse(xhr.responseText);
+
+                document.getElementById('x1Result').textContent = JSON.stringify(result.x1);
+                document.getElementById('thetaResult').textContent = JSON.stringify(result.theta);
+                document.getElementById('zResult').textContent = JSON.stringify(result.z);
+                document.getElementById('hResult').textContent = JSON.stringify(result.h);
+                document.getElementById('JResult').textContent = JSON.stringify(result.J);
+                document.getElementById('deltaJResult').textContent = JSON.stringify(result.deltaJ);
+                document.getElementById('wResult').textContent = JSON.stringify(result.w);
+                document.getElementById('bResult').textContent = JSON.stringify(result.b);
+                document.getElementById('logOddsResult').textContent = JSON.stringify(result.logOdds);
+			    document.getElementById('decisionBoundary').textContent = JSON.stringify(result.decisionBoundary);
+
+
+                var scatterData = dataX.map((point, index) => ({
+                    x: [point[0]], y: [point[1]], mode: 'markers', type: 'scatter',
+                    marker: { size: 10, color: dataY[index] ? 'blue' : 'red' }
+                }));
+
+                var decisionBoundary = {
+                    x: [result.decisionBoundary[0].x, result.decisionBoundary[1].x],
+                    y: [result.decisionBoundary[0].y, result.decisionBoundary[1].y],
+                    mode: 'lines', type: 'scatter', name: '决策边界', line: { color: 'green' }
+                };
+
+                var layout = {
+                    title: '逻辑回归决策边界',
+                    xaxis: { title: '特征1' },
+                    yaxis: { title: '特征2' }
+                };
+
+                Plotly.newPlot('plotlyChart', [...scatterData, decisionBoundary], layout);
+            }
+        };
+        xhr.send(JSON.stringify({ X: dataX, y: dataY }));
+    });
+
+	function saveToHistory() {
+			console.log("saveToHistory is called");
+		// 首先确保所有的结果都已正确显示在前端
+		var dataToSend = {
+			x1: document.getElementById('x1Result').textContent,
+			theta: document.getElementById('thetaResult').textContent,
+			z: document.getElementById('zResult').textContent,
+			h: document.getElementById('hResult').textContent,
+			J: document.getElementById('JResult').textContent,
+			deltaJ: document.getElementById('deltaJResult').textContent,
+			w: document.getElementById('wResult').textContent,
+			b: document.getElementById('bResult').textContent,
+			logOdds: document.getElementById('logOddsResult').textContent,
+			decisionBoundary: document.getElementById('decisionBoundary').textContent
+		};
+
+		// 使用 fetch API 发送 POST 请求
+		fetch('/saveLogicHistory', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(dataToSend)
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.success) {
+				alert('数据已成功保存到数据库');
+			} else {
+				alert('保存失败：' + data.message);
+			}
+		})
+		.catch(error => console.error('保存过程中发生错误:', error));
+	}
+
+</script>
+
+</html>

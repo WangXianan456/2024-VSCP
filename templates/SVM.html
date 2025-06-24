@@ -1,0 +1,314 @@
+$def with (username)
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script src="/static/js/checkLogin.js"></script>
+    <title>SVM 数据分析</title>
+    <style>
+		body {
+			background-color: #c1d8f5;
+			background-size: cover;
+		}
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .module1 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+		.module2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .container2 {
+            width: 80%;
+            height: 280px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+		.container3 {
+			margin: 20px;
+		}
+
+		label, input, button {
+			display: block;
+			margin-bottom: 10px;
+		}
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+		.text2 {
+            font-size: 20px;
+            color: #357bb8;
+        }
+
+        .slogan {
+            text-align: center;
+			padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+		.red-bold {
+			color: red;
+			padding: 10px;
+			font-weight: bold;
+			font-size: 30px;
+		}
+		.myElement {
+			background-color: #c1d8f5;
+			border-radius: 10px;
+			padding: 10px;
+			color: #353535;
+		}
+		.myElement2 {
+			background-color: #377cb9;
+			text-align: center;
+			border-radius: 10px;
+			padding: 10px;
+			color: #ffffff;
+		}
+		.myElement3 {
+			background-color: #b32424;
+			text-align: center;
+			border-radius: 10px;
+			padding: 10px;
+			color: #ffffff;
+		}
+    </style>
+</head>
+
+<body>
+
+<div class="row">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="slogan">
+                <p>面向统计学的数据计算可视化分析平台</p>
+            </div>
+           	<div class="col-md-2" style="background-color: #f2f2f2;color: red;padding: 10px;font-weight: bold;font-size: 30px;"><br> </div>
+				<div class="red-bold text-center col-md-8" style="background-color: #f2f2f2;">
+					支持向量机分析
+					</div>
+
+				<div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 5px; text-align: center;">
+					<div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 5px auto;"></div>
+					<h4 style="margin: 5px 0;">当前用户：$username</h4>
+				</div>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="module1">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="calculateApp.html" target="_blank">首页</a></li>
+                    <li><a href="FisherPlus.html" target="_blank">Fisher判别分析</a></li>
+                    <li><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+                    <li><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+					<li><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+                    <li class="active"><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+                    <li><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+                    <li><a onclick="checkLogin()" target="_blank">查看历史记录</a></li>
+                </ul>
+            </div>
+
+            <a href="SVM.html" target="_blank">
+				<img src="/static/img/svm.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Goldfish.html" target="_blank">
+				<img src="/static/img/goldfish.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+            <a href="FisherPlus.html" target="_blank">
+				<img src="/static/img/fisher.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Linear.html" target="_blank">
+				<img src="/static/img/linear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="MLinear.html" target="_blank">
+				<img src="/static/img/mlinear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Logistic.html" target="_blank">
+				<img src="/static/img/logic.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6">
+                    <a><img src="/static/img/svm.jpg" width="400" height="320" alt="SVM"></a>
+                </div>
+                <div class="row-cols-7">
+                    <div class="module2">
+                        <button type="button" class="btn btn-primary" data-toggle="button">SVM简介：</button>
+                        <div class="module3"></div>
+                        <div class="container2">
+                            <p class="text1">支持向量机（Support Vector Machine）是一种监督学习模型，广泛应用于分类和回归分析。SVM通过寻找最佳的超平面来分离不同类别的数据点。
+                               其目标是找到权重 \( \mathbf{w} \)和偏置\( b \)，使以下代价函数最小化:<br>
+                               <p style="font-size: 18px;"> \( \frac{1}{2} \|\mathbf{w}\|^2 + C \sum_{i=1}^{n} \max(0, 1 - y_i (\mathbf{w} \cdot \mathbf{x}_i + b)) \) </p>
+                            </div>
+                        <p class="text-center red-bold" style="color: #ffffff;background-color: #357bb8;">
+                            支持向量机分析过程化计算<br>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <form id="inputForm">
+                                    <label for="dataX"><h3 class="myElement2">输入数据矩阵X：</h3></label>
+                                    <textarea id="dataX" name="dataX" rows="5" cols="20" placeholder="例如：&#10;1 2&#10;3 4&#10;5 6"></textarea>
+                                    <label for="dataY"><h3 class="myElement2">标签向量y：</h3></label>
+                                    <textarea id="dataY" name="dataY" rows="5" cols="20" placeholder="例如：&#10;0&#10;1&#10;0"></textarea>
+                                    <button type="submit" class="myElement3"><h4>开始计算</h4></button>
+                                    <button type="button" class="myElement3" onclick="saveToHistory()"><h4>保存记录</h4></button>
+                                </form>
+                            </div>
+                        <div class="col-md-5">
+                            <div id="result">
+                                <h3 class="myElement2">计算结果与过程：</h3>
+                            </div>
+                            <div id="step1">
+                                <h2 class="text2">Step1: 输入数据和标签：</h2>
+                                <p class="myElement">X = <span id="XResult"></span>
+                                <br>y = <span id="yResult"></span></p>
+                            </div>
+                            <div id="step2">
+                                <h2 class="text2">Step2: 支持向量：</h2>
+                                <p class="myElement">\( \mathbf{x}_i = \mathbf{w}^{-1} \left( \frac{1}{y_i} - b \right) \) <br>=<span id="supportVectorsResult"></span></p>
+                            </div>
+                            <div id="step3">
+                                <h2 class="text2">Step3: 拉格朗日乘子：</h2>
+                                <p class="myElement">\(\alpha_i = \frac{1 - y_i (w \cdot x_i + b)}{\xi_i}\) <br>=<span id="dualCoefsResult"></span></p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div id="step4">
+                                 <h2 class="text2">Step4: 偏置项：</h2>
+                                 <p class="myElement">b = \( y_i - \mathbf{w} \cdot \mathbf{x}_i \) <br>= <span id="interceptResult"></span></p>
+                            </div>
+                            <div id="step5">
+                                <h2 class="text2">Step5: 超平面的法向量：</h2>
+                                <p class="myElement"> \( \mathbf{w} = \sum_{i=1}^{N} \alpha_i y_i \mathbf{x}_i\) <br>=<span id="weightsResult"></span></p>
+                            </div>
+                            <div id="step6">
+                                <h2 class="text2">Step6: 决策边界方程：</h2>
+                                <p class="myElement">y = -(\( \frac{w_0}{w_1} \)) x - \( \frac{b}{w_1} \)  <br>= <span id="decisionBoundaryResult"></span></p>
+                            </div>
+                        </div>
+                        </div>
+                        <h3 class="myElement2">绘制图像：</h3>
+                        <h4>
+                            <ul>
+                                <span style="color: blue;"> ●</span> 数据点
+                                <span style="color: red;"> —</span> 决策边界
+                            </ul>
+                        </h4>
+                        <div id="plotlyChart" style="width: 1000px; height: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+        document.getElementById('inputForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var dataX = document.getElementById('dataX').value.split('\n').map(x => x.split(' ').map(Number));
+            var dataY = document.getElementById('dataY').value.split('\n').map(Number);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/calculate2', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var result = JSON.parse(xhr.responseText);
+
+                    document.getElementById('XResult').textContent = JSON.stringify(dataX);
+                    document.getElementById('yResult').textContent = JSON.stringify(dataY);
+                    document.getElementById('supportVectorsResult').textContent = JSON.stringify(result.support_vectors);
+                    document.getElementById('dualCoefsResult').textContent = JSON.stringify(result.dual_coefs);
+                    document.getElementById('interceptResult').textContent = JSON.stringify(result.intercept);
+                    document.getElementById('weightsResult').textContent = JSON.stringify(result.weights);
+                    document.getElementById('decisionBoundaryResult').textContent = JSON.stringify(result.decision_boundary);
+
+                    var scatterData = dataX.map((point, index) => ({
+                        x: [point[0]], y: [point[1]], mode: 'markers', type: 'scatter',
+                        marker: { size: 10, color: dataY[index] ? 'blue' : 'red' }
+                    }));
+
+                    var decisionBoundary = {
+                        x: [result.decision_boundary[0].x, result.decision_boundary[1].x],
+                        y: [result.decision_boundary[0].y, result.decision_boundary[1].y],
+                        mode: 'lines', type: 'scatter', name: '决策边界', line: { color: 'green' }
+                    };
+
+                    var layout = {
+                        title: '支持向量机决策边界',
+                        xaxis: { title: '特征1' },
+                        yaxis: { title: '特征2' }
+                    };
+
+                    Plotly.newPlot('plotlyChart', [...scatterData, decisionBoundary], layout);
+                } else if (xhr.readyState == 4) {
+                    console.error(xhr.responseText);
+                }
+            };
+            xhr.send(JSON.stringify({ X: dataX, y: dataY }));
+        });
+
+        function saveToHistory() {
+            var dataToSend = {
+                X: document.getElementById('XResult').textContent,
+                y: document.getElementById('yResult').textContent,
+                supportVectors: document.getElementById('supportVectorsResult').textContent,
+                dualCoefs: document.getElementById('dualCoefsResult').textContent,
+                intercept: document.getElementById('interceptResult').textContent,
+                weights: document.getElementById('weightsResult').textContent,
+                decisionBoundary: document.getElementById('decisionBoundaryResult').textContent
+            };
+
+        fetch('/saveSvmHistory', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataToSend)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('数据已成功保存到数据库');
+            } else {
+                alert('保存失败：' + data.message);
+            }
+        })
+        .catch(error => console.error('保存过程中发生错误:', error));
+    }
+
+</script>
+
+</html>

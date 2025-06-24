@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>多元线性回归分析</title>
+    <style>
+        body {
+            background-color: #c1d8f5;
+            background-size: cover;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .module1, .module2 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+        .text2 {
+            font-size: 20px;
+            color: #357bb8;
+        }
+        .slogan {
+            text-align: center;
+            padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .red-bold {
+            color: red;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        .myElement {
+            background-color: #c1d8f5;
+            border-radius: 10px;
+            padding: 10px;
+            color: #353535;
+        }
+        .myElement2 {
+            background-color: #377cb9;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            color: #ffffff;
+        }
+        .myElement3 {
+            background-color: #b32424;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            color: #ffffff;
+        }
+        #result {
+            display: flex;
+        }
+        #result > div {
+            margin-right: 20px;
+        }
+        #chart {
+            margin-left: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="row">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="slogan">
+                <p>面向统计学的数据计算可视化分析平台</p>
+            </div>
+            <p class="text-center red-bold" style="background-color: #f2f2f2;">
+                多元线性回归分析
+            </p>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class ="module1">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="calculateApp.html" target="_blank">首页</a></li>
+                    <li><a href="FisherPlus.html" target="_blank">Fisher判别分析</a></li>
+                    <li><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+                    <li class="active"><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+                    <li><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+                    <li><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+                    <li><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6">
+                    <a><img src="https://wx2.sinaimg.cn/orj360/0083z4iUly1hl9jv1bo5ij30no0hf0tc.jpg" width="400" height="320" alt="Linear"></a>
+                </div>
+                <div class="row-cols-7">
+                    <div class="module2">
+                        <button type="button" class="btn btn-primary" data-toggle="button"> 多元线性回归分析简介：</button>
+                        <div class="container2">
+                            <p class="text1">多元线性回归分析是统计学中的一种方法，用于探索多个自变量与一个因变量之间的线性关系。
+                                <br>回归方程通常为:\( y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p + \varepsilon \)
+                                <br>多元线性回归可以帮助我们预测因变量的值，了解自变量对因变量的影响，并提供对变量间关系的量化描述。
+                            </p>
+                        </div>
+                        <p class="text-center red-bold" style="color: #ffffff;background-color: #357bb8;">
+                            多元线性回归分析过程化计算
+                        </p>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <form id="inputForm">
+                                    <label for="data1"><h3 class="myElement2">请输入数据集<br> \( X \)（每行一个数据点，每列一个变量）：</h3></label>
+                                    <textarea id="dataX" name="dataX" rows="10" cols="20" placeholder="例如：&#10;1,2&#10;3,4&#10;5,6"></textarea><br>
+                                    <label for="data2"><h3 class="myElement2">请输入数据集<br> \( y \)：</h3></label>
+                                    <textarea id="dataY" name="dataY" rows="5" cols="20" placeholder="例如：&#10;2&#10;4&#10;6"></textarea><br>
+                                    <button type="submit" class="myElement3"><h4>开始计算</h4></button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <h3 class="myElement2">计算结果与过程：</h3>
+                                </div>
+                                <div id="step1">
+                                    <h2 class="text2">Step1: 计算系数：</h2>
+                                    <p class="myElement">回归系数 \( \beta \): <span id="coefficients"></span></p>
+                                </div>
+                                <div id="step2">
+                                    <h2 class="text2">Step2: 直线方程：</h2>
+                                    <p class="myElement">方程: \( y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p \)</p>
+                                </div>
+                                <div id="step3">
+                                    <h2 class="text2">Step3: 误差分解：</h2>
+                                    <p class="myElement">决定系数 \( R^2 \): <span id="rSquared"></span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 class="myElement2">绘制图像：</h3>
+                                <div id="result">
+                                    <canvas id="chart" width="340" height="340" style="border:1px solid #000000;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('inputForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var dataX = parseData(document.getElementById('dataX').value);
+        var dataY = parseData(document.getElementById('dataY').value, false);
+
+        if (dataX.length === 0 || dataY.length === 0 || dataX.length !== dataY.length) {
+            alert('请输入正确格式的数据！');
+            return;
+        }
+
+        var regressionResult = calculateMultipleLinearRegression(dataX, dataY);
+        document.getElementById('coefficients').textContent = regressionResult.coefficients.join(', ');
+        document.getElementById('rSquared').textContent = regressionResult.rSquared.toFixed(2);
+        document.getElementById('result').style.display = 'block';
+
+        var ctx = document.getElementById('chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: '数据点集',
+                    data: dataX.map(function(row, i) {
+                        return { x: row[0], y: dataY[i] }; // 绘制第一个自变量和因变量的关系
+                    }),
+                    pointBackgroundColor: 'red'
+                }]
+            },
+            options: {
+                scales: {
+                    x: { beginAtZero: true },
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    });
+
+    function parseData(data, isMatrix = true) {
+        return data.split('\n').map(function(row) {
+            var values = row.split(',').map(function(value) {
+                return parseFloat(value.trim());
+            });
+            return isMatrix ? values : values[0];
+        }).filter(function(values) {
+            return values.every(function(value) {
+                return !isNaN(value);
+            });
+        });
+    }
+
+    function calculateMultipleLinearRegression(X, y) {
+        var n = X.length;
+        var p = X[0].length;
+        var X_transpose = math.transpose(X);
+        var X_transpose_X = math.multiply(X_transpose, X);
+        var X_transpose_X_inv = math.inv(X_transpose_X);
+        var X_transpose_y = math.multiply(X_transpose, y);
+        var coefficients = math.multiply(X_transpose_X_inv, X_transpose_y);
+
+        var y_hat = math.multiply(X, coefficients);
+        var residuals = math.subtract(y, y_hat);
+        var SSE = math.sum(math.square(residuals));
+        var SST = math.sum(math.square(math.subtract(y, math.mean(y))));
+        var rSquared = 1 - SSE / SST;
+
+        return { coefficients: coefficients, rSquared: rSquared };
+    }
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.5.1/math.min.js"></script>
+
+</body>
+</html>

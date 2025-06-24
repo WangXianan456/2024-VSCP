@@ -1,0 +1,318 @@
+$def with (username)
+<html>
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="/static/js/checkLogin.js"></script>
+	<title>多元线性回归分析</title>
+
+    <style>
+				body {
+		 background-color: #c1d8f5;
+			  background-size: cover;
+			}
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .module1 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+		.module2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .container2 {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+		.container3 {
+			  margin: 20px;
+			}
+
+			label, input, button {
+			  display: block;
+			  margin-bottom: 10px;
+			}
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+		.text2 {
+			font-size: 18px;
+			color: #357bb8;
+			line-height: 20px;
+			border: 1px solid #000;
+			padding: 10px;
+			margin: 10px auto;
+			display: block;
+			width: fit-content;
+			text-align: center;
+		}
+				.text3 {
+			font-size: 15px;
+			color: #357bb8;
+			line-height: 20px;
+			border: 4px solid #000;
+			padding: 10px;
+			margin: 10px auto;
+			display: block;
+			width: fit-content;
+		}
+								.text4 {
+			font-size: 15px;
+			color: #b8355c;
+			line-height: 20px;
+			border: 4px solid #00c4ff;
+			padding: 10px;
+			margin: 10px auto;
+			display: block;
+			width: fit-content;
+
+		}
+        .slogan {
+            text-align: center;
+			padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    .red-bold {
+        color: red;
+		padding: 10px;
+        font-weight: bold;
+        font-size: 30px;
+		}
+	#result {
+	  display: flex;
+	}
+	#result > div {
+	  margin-right: 20px;
+	}
+
+	#chart {
+	  margin-left: auto;
+	}
+		.myElement {
+		  background-color: #c1d8f5;
+		  /* 设置圆角边框 */
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #353535;
+		}
+	.myElement2 {
+		  background-color: #377cb9;
+		  text-align: center;
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #ffffff;
+		}
+		.myElement3 {
+		  background-color: #b32424;
+		  text-align: center;
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #ffffff;
+		}
+    </style>
+</head>
+<body>
+<div class="row"> <!-- 导航栏 -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			    <div class="slogan">
+					<p>面向统计学的数据计算可视化分析平台</p>
+					</div>
+				<div class="col-md-2" style="background-color: #f2f2f2;color: red;padding: 10px;font-weight: bold;font-size: 30px;"><br> </div>
+				<div class="red-bold text-center col-md-8" style="background-color: #f2f2f2;">
+					多元线性回归分析
+					</div>
+
+				<div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 5px; text-align: center;">
+					<div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 5px auto;"></div>
+					<h4 style="margin: 5px 0;">当前用户：$username</h4>
+				</div>
+		</div>
+	</nav>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"><!-- 2.左侧栏 -->
+			<div class ="module1">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="calculateApp.html" target="_blank">首页</a></li>
+				<li><a href="FisherPlus.html" target="_blank"> Fisher判别分析</a></li>
+				<li><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+				<li class="active"><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+				<li><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+				<li><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+				<li><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+				<li><a onclick="checkLogin()" target="_blank">查看历史记录</a></li>
+			</ul>
+			</div>
+			   <div class="row">
+                <a href="MLinear.html" target="_blank">
+                    <img src="/static/img/mlinear.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="Logistic.html" target="_blank">
+                    <img src="/static/img/logic.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="SVM.html" target="_blank">
+                    <img src="/static/img/svm.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="Goldfish.html" target="_blank">
+                    <img src="/static/img/goldfish.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="FisherPlus.html" target="_blank">
+                    <img src="/static/img/fisher.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+            </div>
+
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-6"><!-- 3.轮播 -->
+						<a ><img src="/static/img/mlinear.jpg" width="480" height="380" alt="Linear"></a>
+				</div>
+
+				<div class="row-cols-7">
+					<div class="module2">
+
+					<button type="button" class="btn btn-primary"
+						data-toggle="button"> 多元线性回归分析简介：
+					</button>
+                        <div class="module3">
+
+                        </div>
+						<div class="container2">
+       						<p class="text1">多元线性回归分析是一种统计方法，用于研究两个或多个自变量（解释变量）和一个因变量（响应变量）之间的线性关系。在这种分析中，我们尝试找到一个线性方程，这个方程以最佳方式描述自变量和因变量之间的关系。其基本形式如下：
+								<br> \( y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_n x_n + \varepsilon \)
+								<br>多元线性回归的目的是通过估计回归系数来量化自变量对因变量的影响，并使用这些系数来做预测或了解变量之间的关系。它在经济学、社会科学、生物统计学和工程学等许多领域都有广泛应用。<br></p>
+    					</div>
+						<p class="text-center red-bold" style="color: #ffffff;background-color: #357bb8;">
+								多元线性回归分析过程化计算<br>
+						</p>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-12">
+									<div class="col-md-6">例：<img src="/static/img/exam.jpg"
+																 style="width: 400px; height: 200px;margin: 10px auto; " alt="水印图片"></div>
+									<div class="col-md-6">
+										<p class="text2">
+								<br>上传CSV文件，系统默认最后一列为因变量，自动计算出多元回归方程。
+								<br><br></p>
+										<p class="text3">右图中为美国某几个州的人口、面积、收入、文盲率和高中毕业率数据，
+									经过计算我们可以得到多元回归方程：<br>Y = 49.3848 + 0.0617*X1 + 0.0022*X2 + -0.0000*X3 + -0.0093*X4 + 6.2128*X5
+									</p></div></div>
+							<div class="row">
+							<div class="col-md-6">
+								<h3 class="myElement2">上传文件</h3>
+							<form id="upload-form" action="/UploadCSV" method="post" enctype="multipart/form-data">
+									<div class="container2">
+										<h4 class="myElement2">
+											<input type="file" name="csvfile" accept=".csv" value="上传">
+										</h4>
+										<button type="submit" class="myElement3"><h4>开始计算</h4></button><br>
+										<a href="/static/files/data.csv" download="测试数据.csv">下载实验测试数据</a>
+									</div>
+								</form>
+							</div>
+							<div class="col-md-6">
+							<h3 class="myElement2">计算结果</h3>
+								<div class="container2">
+								<p class="text4">多元线性回归方程<span id="Mresult"></span></p>
+
+										<p class="text4">预测结果<span id="predictions"></span></p>
+									<textarea class="text4" id="modelSummary" readonly style="resize: none;"> 模型摘要</textarea>
+
+										</div><div id="error-message" style="color: red; display: none;"></div>
+							</div>
+
+							</div>
+								<h3 class="myElement2">PCA降维后因变量：</h3>
+                        <h4>
+                            <ul>
+                                <span style="color: #92d7d7;"> ●</span> 数据点
+
+                            </ul>
+                        </h4>
+							<div id="plotly-chart" style="width:80%;height:300px;"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	</div>
+</div>
+
+</body>
+
+<script>document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('upload-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch('/UploadCSV', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Received data:', data);
+            if (!data.points || !Array.isArray(data.points)) {
+                throw new Error('Data points are not available or not in array format');
+            }
+            document.getElementById('Mresult').innerText = data.equation;
+            document.getElementById('modelSummary').innerText = data.summary;
+            document.getElementById('predictions').innerText = "Predictions: " + data.predictions.join(", ");
+
+            // 使用 Plotly 绘制图表
+            const trace1 = {
+                x: data.points.map(point => point.x),
+                y: data.points.map(point => point.y),
+                text: data.points.map(point => point.label), // 添加标签
+                mode: 'markers+text', // 显示点和标签
+                type: 'scatter',
+                marker: {color: 'rgb(53,122,183)'},
+                textposition: 'top center' // 标签位置
+            };
+
+            const layout = {
+                title: 'PCA Data Points',
+                xaxis: {title: 'X Axis'},
+                yaxis: {title: 'Y Axis'}
+            };
+
+            Plotly.newPlot('plotly-chart', [trace1], layout);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('error-message').innerText = 'An error occurred: ' + error.message;
+            document.getElementById('error-message').style.display = 'block';
+        });
+    });
+});
+</script>
+</html>

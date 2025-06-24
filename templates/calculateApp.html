@@ -1,0 +1,726 @@
+$def with (username)
+
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+		<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../static/css/bootstrap.min.css">
+	<script src="../static/css/jquery.min.js"></script>
+	<script src="../static/css/bootstrap.min.js"></script>
+	<script src="../static/css/jquery3.min.js"></script>
+	<script src="../static/css/tex-mml-chtml.js"></script>
+
+	<script src="../static/css/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+	<script src="/static/js/checkLogin.js"></script>
+	<script src="/static/js/retrievePassword.js"></script>
+	<title>统计学数据分析可视化平台</title>
+    <style>
+		body {
+		 background-color: #c1d8f5;
+			  background-size: cover;
+			}
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .module1 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+		.module2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .container2 {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+
+        }
+        .container3 {
+            width: 90%;
+            margin: 10px;
+            padding: 20px;
+            background-color: #8c8c8c;
+
+        }
+
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+        .slogan {
+            text-align: center;
+			padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+     .red-bold {
+            color: red;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 30px;
+        }
+    .algo-details {
+        background-color: #fff;
+        padding: 15px;
+        margin-top: 20px;
+    }
+    /* Border styles */
+    #table-1 {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #table-1, #table-1 th, #table-1 td {
+        border: 2px solid #a4c6da; /* Thicker border and new color */
+    }
+
+    /* Padding and font style */
+    #table-1 td, #table-1 th {
+        padding: 5px 10px;
+        font-size: 13px; /* Larger font size */
+        font-family: Verdana;
+        color: #21252b;
+    }
+
+    /* Table header style */
+    #table-1 th {
+        font-size: 15px; /* Larger font size */
+        text-align: center; /* Center alignment */
+    }
+
+    /* Alternating background colors */
+    #table-1 tr:nth-child(even) {
+        background:  #bfd6f3;
+    }
+    #table-1 tr:nth-child(odd) {
+        background: #ffffff;
+    }
+
+    #table-1 td:nth-child(1), #table-1 th:nth-child(1) {
+        font-weight: bold;
+    }
+
+        .login-btn {
+            background: #357bb8;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+		 .login-btn2 {
+					background: #bdd4f1;
+					color: #3379b6;
+					border: none;
+					padding: 10px 20px;
+					font-size: 16px;
+					cursor: pointer;
+					border-radius: 4px;
+			   		margin-left: 10px;
+				}
+        .login-btn:hover {
+            background: #0056b3;
+        }
+
+        /* 登录弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+			background-color: rgb(0,0,0); /* 背景颜色 */
+    		background-color: rgba(0,0,0,0.4); /* 黑色背景，略透明 */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .form-group input[type="submit"] {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .register-link {
+            margin-top: 20px;
+            display: block;
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;}
+
+		.text-center h1 {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #3379b6;
+            border-color: #3379b6;
+        }
+
+        .btn-primary:hover {
+            background-color: #357bb8;
+            border-color: #357bb8;
+        }
+		.container-fluid{
+
+		}
+		.modelSummary {
+			width: 300px;  /* 定义文本框的宽度 */
+			height: 150px; /* 定义文本框的高度 */
+			overflow: auto; /* 允许滚动 */
+			margin: 20px; /* 增加外边距 */
+			padding: 5px; /* 增加内边距 */
+			border: 1px solid #ccc; /* 设置边框颜色和风格 */
+			font-family: monospace; /* 设置字体样式为等宽字体，使得文本容易阅读 */
+		}
+    </style>
+</head>
+
+<body>
+
+	<div class="row"> <!-- 导航栏 -->
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+					<div class="slogan">
+						<p>面向统计学的数据计算可视化分析平台</p>
+					</div>
+				<div class="col-md-2" style="background-color: #f2f2f2;color: red;padding: 10px;font-weight: bold;font-size: 30px;"><br> </div>
+				<div class="red-bold text-center col-md-8" style="background-color: #f2f2f2;">
+					欢迎来到主页!
+					</div>
+
+				<div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 5px; text-align: center;">
+					<div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 5px auto;"></div>
+					<h4 style="margin: 5px 0;">当前用户：$username</h4>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+	<div class="container">
+		<div class="row">
+		<div class="col-md-2"><!-- 2.左侧栏 -->
+			<div class ="module1">
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active"><a href="#"  target="_blank">首页</a></li>
+				<li><a href="FisherPlus.html" target="_blank">Fisher判别分析</a></li>
+				<li><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+				<li><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+				<li><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+				<li><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+				<li><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+				<li><a onclick="checkLogin()" target="_blank">查看历史记录</a></li>
+
+			</ul>
+			</div>
+		<div class="row">
+
+			<a href="FisherPlus.html" target="_blank">
+				<img src="/static/img/fisher.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Linear.html" target="_blank">
+				<img src="/static/img/linear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="MLinear.html" target="_blank">
+				<img src="/static/img/mlinear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+
+			<a href="Logistic.html" target="_blank">
+				<img src="/static/img/logic.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+            <a href="SVM.html" target="_blank">
+				<img src="/static/img/svm.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Goldfish.html" target="_blank">
+				<img src="/static/img/goldfish.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+
+		</div>
+
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-6">
+					<!-- 3.轮播 -->
+					<div id="myCarousel" class="carousel slide">
+						<!-- 轮播（Carousel）指标 -->
+						<ol class="carousel-indicators">
+							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+							<li data-target="#myCarousel" data-slide-to="1"></li>
+							<li data-target="#myCarousel" data-slide-to="2"></li>
+							<li data-target="#myCarousel" data-slide-to="3"></li>
+							<li data-target="#myCarousel" data-slide-to="4"></li>
+							<li data-target="#myCarousel" data-slide-to="5"></li>
+						</ol>
+						<!-- 轮播（Carousel）项目 -->
+						<div class="carousel-inner">
+							<div class="item active">
+								<a href="FisherPlus.html" target="_blank">
+									<img src="/static/img/fisher.jpg" alt="First slide" style="width: 100%; height: auto;">
+								</a>
+							</div>
+							<div class="item">
+								<a href="Linear.html" target="_blank">
+									<img src="/static/img/linear.jpg" alt="Second slide" style="width: 100%; height: auto;">
+								</a>
+							</div>
+							<div class="item">
+								<a href="MLinear.html" target="_blank">
+									<img src="/static/img/mlinear.jpg" alt="Third slide" style="width: 100%; height: auto;">
+								</a>
+							</div>
+							<div class="item">
+								<a href="Logistic.html" target="_blank">
+									<img src="/static/img/logic.jpg" alt="Fourth slide" style="width: 100%; height: auto;">
+								</a>
+							</div>
+							<div class="item">
+								<a href="SVM.html" target="_blank">
+									<img src="/static/img/svm.jpg" alt="Fifth slide" style="width: 100%; height: auto;">
+								</a>
+							</div>
+							<div class="item">
+								<a href="Goldfish.html" target="_blank">
+									<img src="/static/img/goldfish.jpg" alt="Sixth slide" style="width: 100%; height: auto;">
+								</a>
+							</div>
+						</div>
+						<!-- 轮播（Carousel）导航 -->
+						<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+							<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+							<span class="sr-only">Previous</span>
+						</a>
+						<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+							<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+							<span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+				<div class="row-cols-7">
+					<div class="module2" style="display: flex; justify-content: space-between; align-items: center;">
+						<button type="button" class="btn btn-primary" data-toggle="button"><h4>&nbsp;平台简介&nbsp;</h4></button>
+						<div>
+							<button type="button" class="login-btn2" onclick="document.getElementById('loginModal').style.display='block'">登录账号</button>
+							<button type="button" class="login-btn2" onclick="logout()">退出登录</button>
+						</div>
+
+					</div>
+					<div class="container2" style="background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
+						<p class="text1">&nbsp;统计学数据计算可视化平台可以帮助用户进行统计学数据分析，比如计算二分类问题，计算标准差和相关系数，进行一元或多元线性回归分析等等。
+						<p class="text1" style="color: #3379b6">&nbsp;&nbsp;
+						<br>使用指南：点击左侧导航栏切换对应统计学分析功能。登录账号可保存并查看数据计算与各项参数历史记录</p>
+						<br>
+
+							<a href="Guan.html" target="_blank">关于系统</a>
+
+					</div>
+
+
+					<table class="table table-striped">
+
+					  <caption>
+						  <a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/6577123?fromModule=disambiguation" target="_blank">
+						  <button type="button" class="btn btn-primary" data-toggle="button">什么是统计学数据分析？</button>
+						</a>
+						  </caption>
+
+					  <thead>
+						<tr>
+						  <th>概念</th>
+							<th>解析</th>
+						</tr>
+					  </thead>
+					  <tbody>
+					  <tr style="background-color:#c1d8f5">
+						  <td>基本定义</td>
+						  <td>数据分析是一种使用统计方法和技术来收集、整理、分析和解释数据的过程</td>
+						</tr>
+						<tr>
+						  <td>学习目的</td>
+						  <td>帮助我们了解数据背后的模式、关联和趋势，以及对数据进行推断和预测</td>
+
+						</tr>
+					  <tr style="background-color:#c1d8f5">
+						  <td>应用领域</td>
+						  <td>科学研究、市场调查、经济分析、医学研究等</td>
+
+						</tr>
+					  <tr>
+						  <td>涉及方法</td>
+						  <td>数据收集、数据探索、描述性统计、概率理论、假设检验、回归分析、方差分析等</td>
+						</tr>
+					  <tr style="background-color:#c1d8f5">
+						  <td>学习成果</td>
+						  <td>从数据中提取有关群体特征、关系和变化等有价值信息，以支持决策制定、问题解决和科学研究等活动</td>
+						</tr>
+					  </tbody>
+					</table>
+                        <div class="col-md-13">
+							<div class="algo-details">
+								<table id="table-1">
+									<caption>
+										  <a href="https://baike.baidu.com/item/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/6577123?fromModule=disambiguation" target="_blank">
+										  <button type="button" class="btn btn-primary" data-toggle="button" style="font-size: 20px">统计方法简介</button>
+										</a>
+									</caption>
+
+									<thead>
+										<tr>
+											<th>算法名称</th>
+											<th>算法简介</th>
+											<th>计算公式</th>
+											<th>变量含义</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><a href="FisherPlus.html" target="_blank">Fisher判别分析</a></td>
+											<td>Fisher判别分析是一种经典的统计分类方法，常用于样本分类和模式识别。其基本思想是找到一个判别函数，使得不同类别的样本在投影到该函数时具有最好的区分度。</td>
+											<td>\[ J(w) = \frac{w^T S_B w}{w^T S_W w} \]</td>
+											<td>\( S_B \) 为类间散布矩阵，\( S_W \) 为类内散布矩阵。</td>
+										</tr>
+
+										<tr>
+											<td><a href="Linear.html" target="_blank">一元线性回归分析</a></td>
+											<td>一元线性回归分析是用于研究两个连续变量之间的线性关系的方法。用一个线性方程来描述因变量Y和自变量X之间的关系，从而通过自变量的值预测因变量的值。</td>
+											<td>\[ Y = \beta_0 + \beta_1 X + \epsilon \]</td>
+											<td>\( Y \) 为因变量，\( X \) 为自变量，\( \beta_0 \) 和 \( \beta_1 \) 为回归系数，\( \epsilon \) 为误差项。</td>
+										</tr>
+										<tr>
+											<td><a href="MLinear.html" target="_blank">多元线性回归分析</a></td>
+											<td>多元线性回归分析用于研究两个或多个自变量（解释变量）和一个因变量（响应变量）之间的线性关系。</td>
+											<td>\[ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_n X_n + \epsilon \]</td>
+											<td>\( Y \) 为因变量，\( X_i \) 为自变量，\( \beta_i \) 为回归系数，\( \epsilon \) 为误差项。</td>
+										</tr>
+										<tr>
+											<td><a href="Logistic.html" target="_blank">逻辑回归分析</a></td>
+											<td>逻辑回归分析是一种常用的二分类模型，通过逻辑函数将线性回归的结果映射到一个概率值。</td>
+											<td>\[ \text{logit}(P) = \log \left( \frac{P}{1-P} \right) = \beta_0 + \beta_1 x_1 + \cdots + \beta_n x_n \]</td>
+											<td>\( P \) 表示事件发生的概率，\( \beta_i \) 为回归系数。</td>
+										</tr>
+										<tr>
+											<td><a href="SVM.html" target="_blank">支持向量机分析</a></td>
+											<td>支持向量机（SVM, Support Vector Machine）是一种常用的监督学习算法，主要用于分类和回归分析。
+												SVM的核心思想是找到一个最优的超平面（或称决策边界），使得不同类别的样本在该超平面上尽可能地分开，并且使得边界的间隔（即支持向量到超平面的最小距离）最大化。
+												这样可以提高分类器的泛化能力，即在新样本上的表现</td>
+											<td>\[ \min_{w, b, \xi} \frac{1}{2} w^T w + C \sum_{i=1}^{N} \xi_i \] \[ y_i (w^T x_i + b) \geq 1 - \xi_i, \quad \xi_i \geq 0 \]</td>
+											<td>\( w \) 为权重向量，\( b \) 为偏置，\( \xi_i \) 为松弛变量，\( C \) 为惩罚参数。</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+    </div>
+				</div>
+		</div>
+ 			</div>
+		</div>
+		</div></div>
+
+		   <!-- 登录弹窗 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('loginModal').style.display='none'">&times;</span>
+            <h1>登录账号</h1>
+            <form id="loginForm" method="post">
+                <div class="form-group">
+                    <label for="account">账号:</label>
+                    <input type="text" id="account" name="account" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="登录">
+                </div>
+            </form>
+			 <button type="button" class="register-btn" onclick="document.getElementById('registerModal').style.display='block'">注册账号</button>
+        <button type="button" class="forgot-password-btn" onclick="document.getElementById('forgotPasswordModal').style.display='block'">忘记密码</button>
+        <p id="errorMessage" class="error-message"></p>
+        </div>
+    </div>
+
+   <!-- 注册弹窗 -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('registerModal').style.display='none'">&times;</span>
+            <h1>注册账号</h1>
+            <form id="registerForm" method="post">
+                <div class="form-group">
+                    <label for="username">用户名:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_account">账号:</label>
+                    <input type="text" id="reg_account" name="account" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg_password">密码:</label>
+                    <input type="password" id="reg_password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="注册账号">
+                </div>
+            </form>
+            <p id="registerErrorMessage" class="error-message"></p>
+        </div>
+    </div>
+
+	<!--历史记录-->
+	<div id="errorModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<div style="color:#761c19" class="text-center">
+				<br><h4>您还未登录账号，暂无历史记录</h4><br>
+
+			</div>
+			<div style="color: #3379b6" class="text-center">
+
+				<a href="calculateApp.html" target="_blank" class="btn btn-primary">回到主页</a>
+			</div>
+		</div>6
+	</div>
+
+	<!--忘记密码-->
+		<div id="forgotPasswordModal" class="modal">
+			<div class="modal-content">
+				<span class="close" onclick="document.getElementById('forgotPasswordModal').style.display='none'">&times;</span>
+				<h1>忘记密码</h1>
+				<form id="forgotPasswordForm">
+					<div class="form-group">
+						<label for="username">用户名:</label>
+						<input type="text" id="username" name="username" required>
+					</div>
+					<div class="form-group">
+						<label for="account">账号:</label>
+						<input type="text" id="account" name="account" required>
+					</div>
+					<div class="form-group">
+						<button type="button" onclick="retrievePassword()">重置密码</button>
+					</div>
+
+				</form>
+				<p id="forgotPasswordMessage" class="error-message"></p>
+			</div>
+		</div>
+
+	<!-- 重置密码弹窗 -->
+	<div id="resetPasswordModal" class="modal">
+		<div class="modal-content">
+			<span class="close" onclick="document.getElementById('resetPasswordModal').style.display='none'">&times;</span>
+			<h1>重置密码</h1>
+			<form id="resetPasswordForm">
+				<div class="form-group">
+					<label for="resetPasswordUsername">用户名:</label>
+					<input type="text" id="resetPasswordUsername" name="username" required>
+				</div>
+				<div class="form-group">
+					<label for="resetPasswordAccount">账号:</label>
+					<input type="text" id="resetPasswordAccount" name="account" required>
+				</div>
+				<div class="form-group">
+					<label for="newPassword">新密码:</label>
+					<input type="password" id="newPassword" name="newPassword" required>
+				</div>
+				<div class="form-group">
+					<button type="button" onclick="resetPassword()">重置密码</button>
+				</div>
+			</form>
+			<p id="resetPasswordMessage" class="error-message"></p>
+		</div>
+	</div>
+
+</body>
+
+    <script>
+
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            fetch('/login', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+					if (data.success) {
+						window.location.href = data.redirect;  // 根据后端指示的地址进行跳转
+					} else {
+						document.getElementById('errorMessage').textContent = data.error || '登录失败，请重试。';
+					}
+				})
+
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('errorMessage').textContent = '登录过程中出现错误，请稍后再试。';
+            });
+        });
+
+
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+
+            fetch('/register', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/';
+                } else {
+                    document.getElementById('registerErrorMessage').textContent = data.error || '注册失败，请重试。';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('registerErrorMessage').textContent = '注册过程中出现错误，请稍后再试。';
+            });
+        });
+
+		function logout() {
+			fetch('/logout', {
+				method: 'POST'
+			})
+			.then(response => response.json())
+			.then(data => {
+				if (data.success) {
+					alert('退出成功');
+					window.location.href = '/calculateApp.html';  // 修改为你的登录页面路径
+				} else {
+					alert('退出失败，请重试');
+				}
+			})
+			.catch(error => console.error('Logout error:', error));
+		}
+
+       window.onclick = function(event) {
+            var loginModal = document.getElementById('loginModal');
+            var registerModal = document.getElementById('registerModal');
+			 var errorModal = document.getElementById('errorModal');
+
+			if (event.target == errorModal) {
+				errorModal.style.display = "none";
+			}
+            if (event.target == loginModal) {
+                loginModal.style.display = "none";
+            }
+            if (event.target == registerModal) {
+                registerModal.style.display = "none";
+            }
+        }
+
+		var span = document.getElementsByClassName("close")[0];
+
+		span.onclick = function() {
+			document.getElementById('errorModal').style.display = "none";
+		}
+
+		var closeButtons = document.querySelectorAll('.close');
+
+		closeButtons.forEach(function(button) {
+			button.onclick = function() {
+				this.parentElement.parentElement.style.display = 'none';
+			};
+		});
+
+
+    </script>
+
+</html>

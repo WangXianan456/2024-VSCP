@@ -1,0 +1,189 @@
+$def with (username)
+
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/static/js/userManagement.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #c1d8f5;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+        table, th, td {
+            border: 2px solid #a4c6da;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+            color: #21252b;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+            font-size: 15px;
+        }
+        td.center, th.center {
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #bfd6f3;
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        .btn-primary {
+            background-color: #357bb8;
+            border-color: #357bb8;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .slogan {
+            text-align: center;
+            padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .red-bold {
+            color: red;
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
+        }
+        .modal-header {
+            display: flex;           /* 启用Flex布局 */
+            justify-content: center; /* 水平居中 */
+            align-items: center;     /* 垂直居中 */
+            text-align: center;      /* 文本居中 */
+            background-color: #f5f5f5; /* 根据需要设置背景颜色 */
+            border-top-left-radius: 15px; /* 左上角圆角 */
+            border-top-right-radius: 15px; /* 右上角圆角 */
+        }
+
+        .modal-title {
+            font-weight: bold;
+            font-size: 20px;         /* 相当于4号字体 */
+            color: white;
+            background-color: #357ab7;
+            padding: 10px 20px;
+            border-radius: 5px;
+            flex-grow: 0;            /* 防止标题宽度自动扩展 */
+        }
+        .modal-content {
+            border-radius: 15px; /* 设置圆角的大小，你可以根据需要调整这个值 */
+        }
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+       .label1 {
+        background-color: #357ab7;
+        color: #ffffff;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        display: inline-block;
+    }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="slogan">
+                    <p>面向统计学的数据计算可视化分析平台</p>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="red-bold col-md-8">
+                    <h1>管理用户界面</h1>
+                </div>
+                <div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 10px; text-align: center;">
+                    <div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 0 auto;"></div>
+                    <h4>欢迎你，$username<span id="username"></span></h4>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="container">
+        <h2>用户管理</h2>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">添加用户</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>用户名</th>
+                    <th>账号</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="userTable">
+                <!-- 用户数据填充位置 -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal for adding a user -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="addUserModalLabel"><span class="title-container">添加新用户</span></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="userForm">
+                        <div class="form-group">
+                            <label for="newUsername" class="label1">用户名</label>
+                            <input type="text" class="form-control" id="newUsername" placeholder="请输入用户名">
+                        </div>
+                        <div class="form-group">
+                            <label for="newAccount" class="label1">账号</label>
+                            <input type="text" class="form-control" id="newAccount" placeholder="请输入账号">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPassword" class="label1">密码</label>
+                            <input type="password" class="form-control" id="newPassword" placeholder="请输入密码">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="addUser(); return false;">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

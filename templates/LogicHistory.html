@@ -1,0 +1,248 @@
+$def with (username, history_data)
+
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="/static/js/checkLogin.js"></script>
+	<script src="/static/js/retrievePassword.js"></script>
+	<title>历史记录</title>
+    <style>
+    body{
+
+		 background-color: #c1d8f5;
+			  background-size: cover;
+			}
+
+        .slogan {
+            text-align: center;
+			padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .red-bold {
+        color: red;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    #table-1 td, #table-1 th {
+        padding: 5px 10px;
+        font-size: 13px; /* Larger font size */
+        font-family: Verdana;
+        color: #21252b;
+    }
+
+    #table-1 th {
+        font-size: 15px; /* Larger font size */
+        text-align: center; /* Center alignment */
+    }
+
+
+    #table-1 tr:nth-child(even) {
+        background:  #bfd6f3;
+    }
+    #table-1 tr:nth-child(odd) {
+        background: #ffffff;
+    }
+
+    #table-1 td:nth-child(1), #table-1 th:nth-child(1) {
+        font-weight: bold;
+    }
+
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .form-group input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .form-group input[type="submit"] {
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .form-group input[type="submit"]:hover {
+            background: #0056b3;
+        }
+
+		.text-center h1 {
+            margin-bottom: 20px;
+        }
+
+                body {
+            font-family: Arial, sans-serif;
+            background-color: #c1d8f5;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+        table, th, td {
+            border: 2px solid #a4c6da;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+            color: #21252b;
+        }
+        th {
+            background-color: #f2f2f2;
+            text-align: center;
+            font-size: 15px;
+        }
+        td.center, th.center {
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #bfd6f3;
+        }
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+        .scrollable {
+            max-height: 100px;
+            overflow-y: auto;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background-color: #357bb8;
+            border-color: #357bb8;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .navbar {
+            margin-bottom: 20px;
+            font-size: 15px;
+
+        }
+        .container-fluid1 {
+            padding-left: 60px;
+
+        }
+    </style>
+</head>
+
+<body>
+	<div class="row"> <!-- 导航栏 -->
+		<nav class="navbar navbar-default" role="navigation">
+                        <div class="container-fluid">
+                                <div class="slogan">
+                                    <p>面向统计学的数据计算可视化分析平台</p>
+                                    </div>
+                                <div class="col-md-2"></div>
+                            <div class="red-bold text-center col-md-8">
+                            <h1 style="color: #3379b6; font-weight: bold;">历史记录</h1>
+                        </div><div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 10px; text-align: center;">
+                <div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 0 auto;"></div>
+                <h4>当前用户：$username</h4>
+            </div>
+                </div>
+        </nav>
+	</div>
+        <nav class="navbar navbar-default">
+           <div class="container-fluid1">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="calculateApp.html">返回主页</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li ><a href="FisherHistory.html">Fisher判别分析</a></li>
+                <li><a href="LinearHistory.html">一元线性回归分析</a></li>
+
+                <li class="active"><a href="LogicHistory.html">逻辑回归分析</a></li>
+                <li><a href="SVMHistory.html">支持向量机分析</a></li>
+            </ul>
+        </div>
+        </nav>
+
+    <div class="container">
+        <h1>逻辑回归分析历史记录</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="center">ID</th>
+                    <th class="center">Username</th>
+                    <th>x1</th>
+                    <th>theta</th>
+                    <th>z</th>
+                    <th>h</th>
+                    <th>J</th>
+                    <th>deltaJ</th>
+                    <th>w</th>
+                    <th>b</th>
+                    <th>log_odds</th>
+                    <th>决策边界</th>
+                    <th>录入时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                $for data in history_data:
+                    <tr>
+                        <td class="center">${data['id']}</td>
+                        <td class="center">${data['username']}</td>
+                        <td><div class="scrollable">${data['x1']}</div></td>
+                        <td><div class="scrollable">${data['theta']}</div></td>
+                        <td><div class="scrollable">${data['z']}</div></td>
+                        <td><div class="scrollable">${data['h']}</div></td>
+                        <td>${data['J']}</td>
+                        <td><div class="scrollable">${data['deltaJ']}</div></td>
+                        <td><div class="scrollable">${data['w']}</div></td>
+                        <td>${data['b']}</td>
+                        <td><div class="scrollable">${data['log_odds']}</div></td>
+                        <td><div class="scrollable">${data['decision_boundary']}</div></td>
+                        <td><div class="scrollable">${data['input_time']}</div></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+
+</html>
+

@@ -1,0 +1,393 @@
+$def with (username)
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="/static/js/checkLogin.js"></script>
+	<title>Fisher判别</title>
+    <style>
+		body {
+		 background-color: #c1d8f5;
+			  background-size: cover;
+			}
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .module1 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+		.module2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .container2 {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+		.container3 {
+			  margin: 20px;
+			}
+
+			label, input, button {
+			  display: block;
+			  margin-bottom: 10px;
+			}
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+		.text2 {
+            font-size: 20px;
+            color: #357bb8;
+        }
+        .slogan {
+            text-align: center;
+			padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    .red-bold {
+        color: red;
+		padding: 10px;
+        font-weight: bold;
+        font-size: 30px;
+		}
+	#result {
+	  display: flex;
+	}
+
+	#result > div {
+	  margin-right: 20px;
+	}
+	.myElement {
+		  background-color: #c1d8f5;
+		  /* 设置圆角边框 */
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #353535;
+		}
+	.myElement2 {
+		  background-color: #377cb9;
+		  text-align: center;
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #ffffff;
+		}
+		.myElement3 {
+		  background-color: #b32424;
+		  text-align: center;
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #ffffff;
+		}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="row"> <!-- 导航栏 -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			    <div class="slogan">
+					<p>面向统计学的数据计算可视化分析平台</p>
+					</div>
+			<div class="col-md-2" style="background-color: #f2f2f2;color: red;padding: 10px;font-weight: bold;font-size: 30px;"><br> </div>
+				<div class="red-bold text-center col-md-8" style="background-color: #f2f2f2;">
+					Fisher判别分析
+					</div>
+
+				<div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 5px; text-align: center;">
+					<div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 5px auto;"></div>
+					<h4 style="margin: 5px 0;">当前用户：$username</h4>
+				</div>
+		</div>
+
+	</nav>
+</div>
+
+<div class="container">
+
+	<div class="row">
+		<div class="col-md-2"><!-- 2.左侧栏 -->
+			<div class ="module1">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="calculateApp.html" target="_blank">首页</a></li>
+				<li class="active"><a href="FisherPlus.html" target="_blank"> Fisher判别分析</a></li>
+				<li><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+				<li><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+				<li><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+				<li><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+				<li><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+				<li><a onclick="checkLogin()" target="_blank">查看历史记录</a></li>
+
+			</ul>
+			</div>
+
+			<a href="Linear.html" target="_blank">
+				<img src="/static/img/linear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="MLinear.html" target="_blank">
+				<img src="/static/img/mlinear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+
+			<a href="Logistic.html" target="_blank">
+				<img src="/static/img/logic.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+            <a href="SVM.html" target="_blank">
+				<img src="/static/img/svm.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Goldfish.html" target="_blank">
+				<img src="/static/img/goldfish.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-6"><!-- 3.轮播 -->
+						<a ><img src="/static/img/fisher.jpg" width="400" height="320" alt="fisher"></a>
+				</div>
+
+				<div class="row-cols-7">
+					<div class="module2">
+
+					<button type="button" class="btn btn-primary"
+						data-toggle="button"> Fisher判别简介：
+					</button>
+                        <div class="module3">
+
+                        </div>
+						<div class="container2">
+       						<p class="text1">Fisher判别，也被称为线性判别分析(简称LDA),旨在通过寻找一个线性变换，将具有不同类别的数据点在低维空间中最大程度地分开。
+								<br><br>LDA通过最大化不同类别之间的“类际差异”并最小化同一类别内部的“类内差异”，来实现对样本的有效分类。</p>
+    					</div>
+						<p class="text-center red-bold" style="color: #ffffff;background-color: #357bb8;">
+								Fisher判别分析过程化计算<br>
+						</p>
+						<div class="row">
+							<div class="col-md-3">
+								<form id="inputForm">
+									<label for="data1"><h3 class="myElement2">请输入<br>第一类数据：</h3></label>
+									<textarea id="data1" name="data1" rows="5" cols="20" placeholder="例如：&#10;1 2&#10;3 4&#10;5 6"></textarea>
+									<label for="data2"><h3 class="myElement2">第二类数据：</h3></label>
+									<textarea id="data2" name="data2" rows="5" cols="20" placeholder="例如：&#10;7 8&#10;9 10&#10;11 12"></textarea>
+									<button type="submit" class="myElement3"><h4>开始计算</h4></button>
+
+								  </form>
+							</div>
+						<div class="col-md-5">
+						 <div id="result">
+								<h3 class="myElement2">计算结果与过程：</h3>
+						 </div>
+
+						  <div id="step1" >
+							  <h2  class="text2">Step1: 计算两个类的均值向量：</h2>
+
+							  <p class="myElement">\( \mathbf{u}_1 = \frac{1}{N_1} \sum_{\mathbf{x}_p \in \mathbf{w}_1} \mathbf{x}_p = \)<span id="u1Result"></span>
+							  <br>\( \mathbf{u}_2 = \frac{1}{N_2} \sum_{\mathbf{x}_p \in \mathbf{w}_2} \mathbf{x}_p =\)<span id="u2Result"> </span></p>
+						  </div>
+
+						  <div id="step2">
+							  <h2  class="text2">Step2: 计算散度矩阵</h2>
+ 						 <p class="myElement">\( S_{w1} = \sum_{j=1}^{2} \sum_{\mathbf{x} \in \mathbf{w}_j} (\mathbf{x}_p - \mathbf{u}_j)(\mathbf{x}_p - \mathbf{u}_j)^T \)<br>\(= \)<span id="S1Result"></span>
+						 <br><br>\( S_{w2} = \sum_{j=1}^{2} \sum_{\mathbf{x} \in \mathbf{w}_j} (\mathbf{x}_p - \mathbf{u}_j)(\mathbf{x}_p - \mathbf{u}_j)^T \)<br>\(= \)<span id="S2Result"></span>
+						 <br><br>\( S_w =S_{w1} + S_{w2} \)<br>\(= \)<span id="SwResult"></span></p>
+						  </div>
+
+						  <div id="step3">
+							  <h2   class="text2">Step3: 计算 w 和 \( \theta \)</h2>
+ 							<p class="myElement">\( \mathbf{w} = S_w^{-1}(\mathbf{u}_1 - \mathbf{u}_2) = \)<span id="wResult"></span>
+ 							 <br><br>\( \theta = -(\mathbf{w}^T(\mathbf{u}_1 + \mathbf{u}_2))/2 = \)<span id="thetaResult"></span> </p>
+						  </div>
+
+						  <div id="step4">
+						  <h2  class="text2">Step4: 直线方程</h2>
+						  <p class="myElement">\( L:\)<span id="LResult"></span></p>
+						  </div>
+						</div>
+
+							<div class="col-md-4">
+								<h3 class="myElement2">绘制图像：</h3>
+								<h4>
+									<ul>
+										<span style="color: blue;"> ●</span> 数据集1
+										<span style="color: red;"> ●</span> 数据集2
+										<span style="color: green;"> —</span> 直线L
+									</ul>
+								</h4><canvas id="myChart" width="340" height="340" style="border:1px solid #000000;"></canvas>
+								    <button type="button" class="myElement3" onclick="saveToHistory()"><h4>保存记录</h4></button>
+							</div>
+
+						</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+
+</body>
+<script>
+    document.getElementById('inputForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var data1 = document.getElementById('data1').value.split('\n').map(x => x.split(' ').map(Number));
+        var data2 = document.getElementById('data2').value.split('\n').map(x => x.split(' ').map(Number));
+
+        // 使用 AJAX 调用后端接口。
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/calculate', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                var result = JSON.parse(xhr.responseText);
+                var dataset1 = data1.map(function(point) {
+                    return {
+                        x: point[0],
+                        y: point[1]
+                    };
+                });
+                var dataset2 = data2.map(function(point) {
+                    return {
+                        x: point[0],
+                        y: point[1]
+                    };
+                });
+
+                // 使用返回的结果更新页面
+                document.getElementById('u1Result').textContent = JSON.stringify(result.u1);
+                document.getElementById('u2Result').textContent = JSON.stringify(result.u2);
+                document.getElementById('S1Result').textContent = JSON.stringify(result.S1);
+                document.getElementById('S2Result').textContent = JSON.stringify(result.S2);
+                document.getElementById('SwResult').textContent = JSON.stringify(result.Sw);
+                document.getElementById('wResult').textContent = JSON.stringify(result.w);
+                document.getElementById('thetaResult').textContent = JSON.stringify(result.theta);
+                document.getElementById('LResult').textContent = JSON.stringify(result.L);
+
+                // 根据最小和最大x值计算直线的起点和终点
+                var minX = Math.min(...dataset1.concat(dataset2).map(point => point.x));
+                var maxX = Math.max(...dataset1.concat(dataset2).map(point => point.x));
+                var lineStart = {
+                    x: minX,
+                    y: result.L.m * minX + result.L.c
+                };
+                var lineEnd = {
+                    x: maxX,
+                    y: result.L.m * maxX + result.L.c
+                };
+                var ctx = document.getElementById('myChart').getContext('2d');
+
+                window.myChart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                            label: '数据集1',
+                            data: dataset1,
+                            backgroundColor: 'blue'
+                        }, {
+                            label: '数据集2',
+                            data: dataset2,
+                            backgroundColor: 'red'
+                        }, {
+                            label: '分类直线',
+                            data: [lineStart, lineEnd],
+                            type: 'line',
+                            borderColor: 'green',
+                            borderWidth: 2,
+                            fill: false,
+                            showLine: true,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                type: 'linear',
+                                position: 'bottom'
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        };
+        xhr.send(JSON.stringify({
+            coordinates1: data1,
+            coordinates2: data2
+        }));
+    });
+
+    function saveToHistory() {
+        // 确保必须的计算结果存在
+        if (!document.getElementById('u1Result').innerText ||
+            !document.getElementById('u2Result').innerText ||
+            !document.getElementById('S1Result').innerText ||
+            !document.getElementById('S2Result').innerText ||
+            !document.getElementById('SwResult').innerText ||
+            !document.getElementById('wResult').innerText ||
+            !document.getElementById('thetaResult').innerText ||
+            !document.getElementById('LResult').innerText) {
+            alert('请先进行计算');
+            return;
+        }
+
+        // 获取用户输入的数据和计算后的结果
+        const inputData = {
+            data1: document.getElementById('data1').value,
+            data2: document.getElementById('data2').value,
+            // 其他数据
+            u1: document.getElementById('u1Result').innerText,
+            u2: document.getElementById('u2Result').innerText,
+            S1: document.getElementById('S1Result').innerText,
+            S2: document.getElementById('S2Result').innerText,
+            Sw: document.getElementById('SwResult').innerText,
+            w: document.getElementById('wResult').innerText,
+            theta: document.getElementById('thetaResult').innerText,
+            L: document.getElementById('LResult').innerText
+        };
+
+        // 发送数据到服务器
+        fetch('/SaveHistory', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(inputData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('数据已存入历史记录');
+            } else {
+                alert('未登录账号，存入历史记录失败');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+</html>

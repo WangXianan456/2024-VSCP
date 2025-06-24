@@ -1,0 +1,320 @@
+$def with (id, sqlData, results, model_errors, username)
+<html>
+<head>
+	<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="static/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<script src="/static/js/checkLogin.js"></script>
+		<script src="/static/js/baoyu.js"></script>
+	<title>机器学习案例</title>
+    <style>
+				body {
+		 background-color: #c1d8f5;
+			  background-size: cover;
+			}
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        .module1 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+		.module2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .container2 {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+		.container3 {
+			  margin: 20px;
+			}
+
+			label, input, button {
+			  display: block;
+			  margin-bottom: 10px;
+			}
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+		.text2 {
+            font-size: 20px;
+            color: #357bb8;
+        }
+        .text3 {
+            font-size: 15px;
+            color: #333;
+        }
+        .slogan {
+            text-align: center;
+			padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+    .red-bold {
+        color: red;
+		padding: 10px;
+        font-weight: bold;
+        font-size: 30px;
+		}
+	#result {
+	  display: flex;
+	}
+	#result > div {
+	  margin-right: 20px;
+	}
+
+	#chart {
+	  margin-left: auto;
+	}
+		.myElement {
+		  background-color: #c1d8f5;
+		  /* 设置圆角边框 */
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #353535;
+		}
+	.myElement2 {
+		  background-color: #377cb9;
+		  text-align: center;
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #ffffff;
+		}
+		.myElement3 {
+		  background-color: #b32424;
+		  text-align: center;
+		  border-radius: 10px;
+		  padding: 10px;
+		  color: #ffffff;
+		}
+		#predictionResults {
+    width: 100%;      /* 容器宽度占据全部可用宽度 */
+    min-height: 50px; /* 最小高度，即使内容为空也保持一定高度 */
+    padding: 10px;    /* 内边距，使内容不会贴近边缘 */
+    margin-top: 20px; /* 与其他页面元素的间距 */
+    background-color: #f8f9fa; /* 背景色，增加可读性 */
+    border: 1px solid #ccc; /* 边框定义 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 轻微的阴影效果增加层次感 */
+    font-size: 16px; /* 字体大小 */
+    color: #333;     /* 字体颜色 */
+}
+    </style>
+
+</head>
+
+<body>
+
+<div class="row"> <!-- 导航栏 -->
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			    <div class="slogan">
+					<p>面向统计学的数据计算可视化分析平台</p>
+					</div>
+							<div class="col-md-2" style="background-color: #f2f2f2;color: red;padding: 10px;font-weight: bold;font-size: 30px;"><br> </div>
+				<div class="red-bold text-center col-md-8" style="background-color: #f2f2f2;">
+					机器学习预测案例
+					</div>
+
+				<div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 5px; text-align: center;">
+					<div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 5px auto;"></div>
+					<h4 style="margin: 5px 0;">当前用户：$username</h4>
+				</div>
+		</div>
+	</nav>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"><!-- 2.左侧栏 -->
+			<div class ="module1">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="calculateApp.html"  target="_blank">首页</a></li>
+				<li><a href="FisherPlus.html" target="_blank"> Fisher判别分析</a></li>
+				<li ><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+				<li><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+				<li><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+				<li><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+				<li class="active"><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+				<li><a onclick="checkLogin()" target="_blank">查看历史记录</a></li>
+			</ul>
+			</div>
+
+			<div class="row">
+
+			<a href="FisherPlus.html" target="_blank">
+				<img src="/static/img/fisher.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Linear.html" target="_blank">
+				<img src="/static/img/linear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="MLinear.html" target="_blank">
+				<img src="/static/img/mlinear.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+			<a href="Logistic.html" target="_blank">
+				<img src="/static/img/logic.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+            <a href="SVM.html" target="_blank">
+				<img src="/static/img/svm.jpg"
+					 style="width: 200px; height: 150px;" alt="水印图片">
+			</a>
+
+		</div>
+	</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="row-cols-5"></div>
+				<div class="col-md-5">
+                    <a ><img src="/static/img/goldfish.jpg" width= "400px" height= "320px" alt="Goldfish"></a>
+				</div>
+
+				<div class="row-cols-5">
+					<div class="module2">
+
+					<button type="button" class="btn btn-primary"
+						data-toggle="button"> 机器学习-鲍鱼鱼案例简介：
+					</button>
+                        <div class="module3">
+
+                        </div>
+						<div class="container2">
+       						此页面模块用来展示系统的可扩容性，可增加更多统计学功能！
+								<br></br>
+						   	<h4>鲍鱼年龄预测是机器学习中的一个经典案例。在这个案例中，目标是使用机器学习方法预测鲍鱼的年龄。	在这个案例中，通常会收集一组鲍鱼的数据，包括它们的物理测量（如长度、直径等）和年龄（通过环的数量表示）。
+                              这些数据被用来训练一个机器学习模型，如线性回归、决策树或神经网络等。
+								<br></br>鲍鱼案例展示了如何应用机器学习来解决实际问题，并且通常用作教学和演示机器学习概念和技术的例子。</h4></p>
+    							<br>
+						</div>
+						<p class="text-center red-bold" style="color: #ffffff;background-color: #357bb8;">
+								机器学习案例<br></p>
+						<div class="row">
+							<div class="col-md-2">
+						<div class="alert alert-success" style="font-size:30px">
+							<span class="glyphicon glyphicon-search"><h4>机器学习</h4></span></div>
+								<img decoding="async" src="https://www.mawhome.com/uploads/allimg/201206/1-201206113636216.png"
+							 class="img-rounded"style="width:100%">
+								<br><br><br>
+								<a href="/static/files/abalone.csv" download="abalone.csv">下载数据集</a><br><br>
+								<a href="/static/models/supermodel.py" download="多重模型.py">下载多重回归模型</a><br>
+
+
+							</div>
+						<div class="col-md-10">
+							<form action = "" method="post" enctype="multipart/>form-data">
+								<div class="row">
+								<div class="col-md-9">
+									<input type="text" class="form-control" value="$id" name="bid">请输入鲍鱼编号1-1000
+								</div>
+									<button type="submit" class="btn btn-primary"> 查询</button>
+								</div>
+							</form>
+						<div style="height:30px"></div>
+						<div class="col-md-4">
+						<div class="panel panel-danger">
+							<div class="panel-heading">
+								<h5 class="panel-title">鲍鱼实际年龄</h5>
+								<h4><span class="label label-success">编号 $sqlData[0][0]号</span>
+								<span class="label label-warning"> 年龄 $sqlData[0][-1]岁</span></h4>
+							</div>
+						</div>
+							<form id="uploadForm" action="/uploadAndPredict" method="post" enctype="multipart/form-data">
+								<label for="modelFile">上传模型:</label>
+								<input type="file" id="modelFile" name="modelFile" required>
+								<input type="text" name="bid" placeholder="请输入数据ID" value="$id" required>
+								<button type="submit" class="btn btn-primary">上传模型并预测</button>模型预测结果：
+							</form>
+
+							<!-- 预测结果显示区域 -->
+							<div id="predictionResults"></div>
+							</div>
+
+						<table class="table">
+							<tbody>
+							<tr>
+								<td>性别</td>
+								<td style="color:#ff0000">$sqlData[0][1]</td>
+								<td>总重</td>
+								<td style="color:#ff0000">$sqlData[0][5]</td>
+							</tr>
+							<tr>
+								<td>长度</td>
+								<td style="color:#ff0000">$sqlData[0][2]</td>
+								<td>去壳重量</td>
+								<td style="color:#ff0000">$sqlData[0][6]</td>
+							</tr>
+							<tr>
+								<td>直径</td>
+								<td style="color:#ff0000">$sqlData[0][3]</td>
+								<td>内脏重量</td>
+								<td style="coLor:#ff0000">$sqlData[0][7]</td>
+							</tr>
+							<tr>
+								<td>厚度</td>
+								<td style="color:#ff0000">$sqlData[0][4]</td>
+								<td>贝壳重量</td>
+								<td style="color:#ff0000">$sqlData[0][8]</td>
+							</tr>
+								<div class="altert alert-danger">
+
+									<!-- 在 <body> 内的适当位置添加 -->
+									<div class="col-md-5">
+										<div class="panel panel-primary">
+											<div class="panel-heading">预测结果</div>
+											<div class="panel-body">
+												$for model_name, pred_age in results.items():
+													<p>$model_name 预测年龄: $pred_age 岁</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="panel panel-primary">
+											<div class="panel-heading">模型下载</div>
+											<div class="panel-body">
+												<a href="/static/models/linear_regression.model" download="linear_regression.model">线性回归模型</a><br>
+												<a href="/static/models/decision_tree.model" download="decision_tree.model">决策树模型</a><br>
+												<a href="/static/models/random_forest.model" download="random_forest.model">随机森林模型</a><br>
+												<a href="/static/models/gradient_boosting_machine.model" download="gradient_boosting_machine.model">梯度提升机模型</a><br>
+												<a href="/static/models/support_vector_machine.model" download="support_vector_machine.model">支持向量机模型</a><br>
+											</div>
+										</div>
+									</div>
+									</div>
+
+								</tbody>
+							</table>
+						</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</div>
+</div>
+</body>
+
+</html>

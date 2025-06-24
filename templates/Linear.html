@@ -1,0 +1,436 @@
+$def with (username)
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/static/js/checkLogin.js"></script>
+    <title>一元线性回归分析</title>
+    <style>
+        body {
+            background-color: #c1d8f5;
+            background-size: cover;
+        }
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .module1 {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .module2 {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+        }
+        .container2 {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+        .container3 {
+            margin: 20px;
+        }
+        label, input, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .text1 {
+            font-size: 20px;
+            color: #333;
+        }
+        .text2 {
+            font-size: 20px;
+            color: #357bb8;
+        }
+        .slogan {
+            text-align: center;
+            padding: 10px;
+            background-color: #c1d8f5;
+            color: #333;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        .red-bold {
+            color: red;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 30px;
+        }
+        #result {
+            display: flex;
+        }
+        #result > div {
+            margin-right: 20px;
+        }
+        #chart {
+            margin-left: auto;
+        }
+        .myElement {
+            background-color: #c1d8f5;
+            border-radius: 10px;
+            padding: 10px;
+            color: #353535;
+        }
+        .myElement2 {
+            background-color: #377cb9;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            color: #ffffff;
+        }
+        .myElement3 {
+            background-color: #b32424;
+            text-align: center;
+            border-radius: 10px;
+            padding: 10px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+<div class="row">
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="slogan">
+                <p>面向统计学的数据计算可视化分析平台</p>
+            </div>
+           	<div class="col-md-2" style="background-color: #f2f2f2;color: red;padding: 10px;font-weight: bold;font-size: 30px;"><br> </div>
+				<div class="red-bold text-center col-md-8" style="background-color: #f2f2f2;">
+					一元线性回归分析
+					</div>
+
+				<div class="col-md-2 user-container" style="background-color: #f2f2f2; border-radius: 5px; padding: 5px; text-align: center;">
+					<div style="background: url('/static/img/user.jpg') no-repeat center center; background-size: cover; height: 30px; width: 30px; margin: 5px auto;"></div>
+					<h4 style="margin: 5px 0;">当前用户：$username</h4>
+				</div>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="module1">
+                <ul class="nav nav-pills nav-stacked">
+                    <li><a href="calculateApp.html" target="_blank">首页</a></li>
+                    <li><a href="FisherPlus.html" target="_blank">Fisher判别分析</a></li>
+                    <li class="active"><a href="Linear.html" target="_blank">一元线性回归分析</a></li>
+                    <li><a href="MLinear.html" target="_blank">多元线性回归分析</a></li>
+                    <li><a href="Logistic.html" target="_blank">逻辑回归分析</a></li>
+                    <li><a href="SVM.html" target="_blank">支持向量机分析</a></li>
+                    <li><a href="Goldfish.html" target="_blank">机器学习案例</a></li>
+				    <li><a onclick="checkLogin()" target="_blank">查看历史记录</a></li>
+                </ul>
+            </div>
+            <div class="row">
+                <a href="MLinear.html" target="_blank">
+                    <img src="/static/img/mlinear.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="Logistic.html" target="_blank">
+                    <img src="/static/img/logic.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="SVM.html" target="_blank">
+                    <img src="/static/img/svm.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="Goldfish.html" target="_blank">
+                    <img src="/static/img/goldfish.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+                <a href="FisherPlus.html" target="_blank">
+                    <img src="/static/img/fisher.jpg" style="width: 200px; height: 150px;" alt="水印图片">
+                </a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-6">
+                    <a><img src="/static/img/linear.jpg" width="400" height="320" alt="Linear"></a>
+                </div>
+                <div class="row-cols-7">
+                    <div class="module2">
+                        <button type="button" class="btn btn-primary" data-toggle="button"> 一元线性回归分析简介：</button>
+                        <div class="module3"></div>
+                        <div class="container2">
+                            <p class="text1">
+                                一元线性回归分析是统计学中的一种方法，用于探索两个连续变量之间的线性关系。
+                                一元线性回归通过拟合一条直线来描述自变量如何与因变量之间的关系。
+                                <br>这条直线的方程通常为:
+                                \( y = \beta_0 + \beta_1 x + \varepsilon \)
+                                <br><br>一元线性回归分析可用于预测因变量的值，了解变量之间的关系，并提供对自变量和因变量之间线性趋势的量化描述。
+                                <br>
+                            </p>
+                        </div>
+                        <p class="text-center red-bold" style="color: #ffffff;background-color: #357bb8;">
+                            一元线性回归分析过程化计算
+                            <br>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <form id="inputForm">
+                                    <label for="data1">
+                                        <h3 class="myElement2">请输入<br>数据集\(x_i \):</h3>
+                                    </label>
+                                    <br>
+                                    <textarea id="data1" name="data1" rows="5" cols="20" placeholder="例如：&#10;1&#10;3&#10;5"></textarea>
+                                    <br>
+                                    <label for="data2">
+                                        <h3 class="myElement2">数据集\(y_i \):</h3>
+                                    </label>
+                                    <br>
+                                    <textarea id="data2" name="data2" rows="5" cols="20" placeholder="例如：&#10;2&#10;4&#10;6"></textarea>
+                                    <br>
+                                    <button type="submit" class="myElement3">
+                                        <h4>开始计算</h4>
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <div>
+                                    <h3 class="myElement2">计算结果与过程：</h3>
+                                </div>
+                                <div id="step1">
+                                    <h2 class="text2">Step1: 计算平均值：</h2>
+                                    <p class="myElement">
+                                        平均值:
+                                        \( \bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i \)=<span id="x_avg"></span>
+                                        <br>平均值:
+                                        \( \bar{y} = \frac{1}{n} \sum_{i=1}^{n} y_i \)=<span id="y_avg"></span>
+                                    </p>
+                                </div>
+                                <div id="step2">
+                                    <h2 class="text2">Step2: 计算相关系数：</h2>
+                                    <p class="myElement">
+                                        x的方差：
+                                        \( L_{xx} = \sum_{i=1}^{n} (x_i - \bar{x})^2 \)=<span id="Lxx"></span>
+                                        <br>y的方差：
+                                        \( L_{yy} = \sum_{i=1}^{n} (y_i - \bar{y})^2 \)=<span id="Lyy"></span>
+                                        <br>协方差：
+                                        \( L_{xy} = \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) - n\bar{x}\bar{y} \)=<span id="Lxy"></span>
+                                    </p>
+                                </div>
+                                <div id="step3">
+                                    <h2 class="text2">Step3: 计算估计参数：</h2>
+                                    <p class="myElement">
+                                        \( \hat{\beta} = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2} = \frac{\sum x_i y_i - n\bar{x}\bar{y}}{\sum (x_i - \bar{x})^2}= \)
+                                        <span id="beta1"></span>
+                                        <br>\(\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}= \)
+                                        <span id="beta0"></span>
+                                    </p>
+                                </div>
+                                <div id="step4">
+                                    <h2 class="text2">Step4: 直线方程</h2>
+                                    <p class="myElement"> L:<span id="L"></span></p>
+                                </div>
+                                <div id="step5">
+                                    <h2 class="text2">Step6: 误差分解</h2>
+                                    <p class="myElement">
+                                        残差平方和：
+                                        \(SS_e = L_{yy} - \hat{\beta}_1 L_{xy} \)=<span id="SSe"></span>
+                                        <br>估计标准差：
+                                        \( \hat{\sigma} = \sqrt{\frac{\sum (y_i - (\hat{y}_i)^2}{n - k - 1}} \)=<span id="sigma"></span>
+                                        <br>相关系数：
+                                        \( r = \frac{\sum{(x_i - \bar{x})(y_i - \bar{y})}}{\sqrt{\sum{(x_i - \bar{x})^2} \sum{(y_i - \bar{y})^2}}} \)=<span id="r"></span>
+                                        <br>决定系数：
+                                        \(R^2 = \frac{SSR}{SST} = \frac{\sum (\hat{y}_i - \bar{y})^2}{\sum (y_i - \bar{y})^2} = \frac{L_{xy}^2}{L_{xx} L_{yy}}\)=<span id="rr"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 class="myElement2">绘制图像：</h3>
+                                <h4>
+                                    <ul>
+                                        <span style="color: blue;"> ●</span> 数据集1
+                                        <span style="color: red;"> ●</span> 数据集2
+                                        <span style="color: green;"> —</span> 直线L
+                                    </ul>
+                                </h4>
+                                <div id="result">
+                                    <canvas id="chart" width="340" height="340" style="border:1px solid #000000;"></canvas>
+                                </div>
+
+                                 <button type="button" class="myElement3" id="saveButton" onclick="saveRecord()">保存记录</button>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+     let globalRegressionResult = null;
+    document.getElementById('inputForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+        var dataset1 = parseData(document.getElementById('data1').value);
+        var dataset2 = parseData(document.getElementById('data2').value);
+
+        // 确保数据集不为空
+        if (dataset1.length === 0 || dataset2.length === 0) {
+            alert('请输入正确格式的数据！');
+            return;
+        }
+
+        // 计算线性回归
+        var regressionResult = calculateLinearRegression(dataset1, dataset2);
+        globalRegressionResult = regressionResult; // 保存到全局变量
+        updateResults(regressionResult);
+        drawChart(dataset1, dataset2, regressionResult);
+    });
+
+    function parseData(data) {
+        return data.split('\n').map(function (value) {
+            return parseFloat(value.trim());
+        }).filter(function (value) {
+            return !isNaN(value);
+        });
+    };
+
+    function calculateLinearRegression(x, y) {
+        var n = x.length;
+        var sum_x = 0, sum_y = 0, sum_xy = 0, sum_xx = 0, sum_yy = 0;
+        for (var i = 0; i < n; i++) {
+            sum_x += x[i];
+            sum_y += y[i];
+            sum_xy += x[i] * y[i];
+            sum_xx += x[i] * x[i];
+            sum_yy += y[i] * y[i];
+        }
+        var x_avg = sum_x / n;
+        var y_avg = sum_y / n;
+        var Lxx = sum_xx - n * x_avg * x_avg;
+        var Lyy = sum_yy - n * y_avg * y_avg;
+        var Lxy = sum_xy - n * x_avg * y_avg;
+        var beta1 = Lxy / Lxx;
+        var beta0 = y_avg - beta1 * x_avg;
+        var SSe = Lyy - beta1 * Lxy;
+        var sigma = Math.sqrt(SSe / (n - 2));
+        var r = Lxy / Math.sqrt(Lxx * Lyy);
+        var rr = r * r;
+        return {
+            slope: beta1,
+            intercept: beta0,
+            x_avg: x_avg,
+            y_avg: y_avg,
+            Lxx: Lxx,
+            Lyy: Lyy,
+            Lxy: Lxy,
+            SSe: SSe,
+            sigma: sigma,
+            r: r,
+            rr: rr
+        };
+    }
+
+    function updateResults(regressionResult) {
+        document.getElementById('L').textContent = 'y = ' + regressionResult.slope.toFixed(2) + ' * x + ' + regressionResult.intercept.toFixed(2);
+        document.getElementById('x_avg').textContent = regressionResult.x_avg.toFixed(2);
+        document.getElementById('y_avg').textContent = regressionResult.y_avg.toFixed(2);
+        document.getElementById('Lxx').textContent = regressionResult.Lxx.toFixed(2);
+        document.getElementById('Lyy').textContent = regressionResult.Lyy.toFixed(2);
+        document.getElementById('Lxy').textContent = regressionResult.Lxy.toFixed(2);
+        document.getElementById('beta1').textContent = regressionResult.slope.toFixed(2);
+        document.getElementById('beta0').textContent = regressionResult.intercept.toFixed(2);
+        document.getElementById('SSe').textContent = regressionResult.SSe.toFixed(2);
+        document.getElementById('sigma').textContent = regressionResult.sigma.toFixed(2);
+        document.getElementById('r').textContent = regressionResult.r.toFixed(2);
+        document.getElementById('rr').textContent = regressionResult.rr.toFixed(2);
+    }
+
+    function drawChart(dataset1, dataset2, regressionResult) {
+        var ctx = document.getElementById('chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: '数据点集',
+                    data: dataset1.map(function (x, i) {
+                        return {x: x, y: dataset2[i]};
+                    }),
+                    pointBackgroundColor: 'red'
+                }, {
+                    label: '回归直线L',
+                    data: [
+                        {
+                            x: Math.min(...dataset1),
+                            y: regressionResult.intercept + regressionResult.slope * Math.min(...dataset1)
+                        },
+                        {
+                            x: Math.max(...dataset1),
+                            y: regressionResult.intercept + regressionResult.slope * Math.max(...dataset1)
+                        }
+                    ],
+                    type: 'line',
+                    pointRadius: 0,
+                    borderColor: 'blue'
+                }]
+            },
+            options: {
+                scales: {
+                    x: {beginAtZero: true},
+                    y: {beginAtZero: true}
+                }
+            }
+        });
+    }
+
+    function saveRecord() {
+        // 收集回归结果数据
+        var regressionResult = {
+            x_avg: document.getElementById('x_avg').textContent,
+            y_avg: document.getElementById('y_avg').textContent,
+            Lxx: document.getElementById('Lxx').textContent,
+            Lyy: document.getElementById('Lyy').textContent,
+            Lxy: document.getElementById('Lxy').textContent,
+            slope: document.getElementById('beta1').textContent,
+            intercept: document.getElementById('beta0').textContent,
+            SSe: document.getElementById('SSe').textContent,
+            sigma: document.getElementById('sigma').textContent,
+            r: document.getElementById('r').textContent,
+            rr: document.getElementById('rr').textContent
+        };
+
+        // 组装发送给后端的完整数据对象
+        var dataToSend = {
+            data1: document.getElementById('data1').value,
+            data2: document.getElementById('data2').value,
+            regressionResult: regressionResult
+        };
+
+        // 发送数据到服务器
+        fetch('/saveLinearHistory', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataToSend)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('数据已存入历史记录');
+                } else {
+                    alert('保存失败：' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+</html>
+
+/*
